@@ -4,8 +4,8 @@ import Purchases, {
 } from 'react-native-purchases';
 import { Platform } from 'react-native';
 
-const RC_API_KEY_IOS = 'test_gwNuPakyQccZsABEhfhFxpLbTcK';
-const RC_API_KEY_ANDROID = 'test_gwNuPakyQccZsABEhfhFxpLbTcK';
+const RC_API_KEY_IOS = 'appl_QkdOQUSrLbrUvoVdkhmWrrevXDr';
+const RC_API_KEY_ANDROID = 'goog_XXXXXXXX'; // TODO: přidat až bude Google Play app
 
 const ENTITLEMENT_ID = 'SlovniQ Pro';
 
