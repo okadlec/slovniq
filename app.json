@@ -13,7 +13,6 @@
     },
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "12",
       "bundleIdentifier": "com.slovniq.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
