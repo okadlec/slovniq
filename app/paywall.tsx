@@ -27,7 +27,7 @@ export default function PaywallScreen() {
       if (offering?.availablePackages[0]) {
         setPrice(offering.availablePackages[0].product.priceString);
       } else {
-        setPrice('N/A');
+        setPrice('199 Kč');
       }
     })();
   }, []);
@@ -37,7 +37,11 @@ export default function PaywallScreen() {
     const success = await purchasePro();
     setLoading(false);
     if (success) {
-      router.back();
+      Alert.alert(
+        'Vítejte v SlovníQ PRO!',
+        'Máte odemčené všechny slovníky a žádné reklamy. Děkujeme za nákup!',
+        [{ text: 'Výborně', onPress: () => router.back() }]
+      );
     } else {
       Alert.alert('Chyba', 'Nákup se nezdařil. Zkuste to znovu.');
     }

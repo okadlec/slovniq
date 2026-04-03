@@ -18,10 +18,21 @@ export async function initIAP(): Promise<void> {
   }
 }
 
+function hasProEntitlement(customerInfo: CustomerInfo): boolean {
+  // Zkontrolovat entitlement přesným ID i alternativními variantami
+  const active = customerInfo.entitlements.active;
+  return (
+    active[ENTITLEMENT_ID] !== undefined ||
+    active['SlovníQ Pro'] !== undefined ||
+    active['pro_lifetime'] !== undefined ||
+    Object.keys(active).length > 0 // fallback: jakýkoli aktivní entitlement = PRO
+  );
+}
+
 export async function checkProStatus(): Promise<boolean> {
   try {
     const customerInfo: CustomerInfo = await Purchases.getCustomerInfo();
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    return hasProEntitlement(customerInfo);
   } catch {
     return false;
   }
@@ -46,7 +57,7 @@ export async function purchasePro(): Promise<boolean> {
     if (!pkg) return false;
 
     const { customerInfo } = await Purchases.purchasePackage(pkg);
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    return hasProEntitlement(customerInfo);
   } catch {
     return false;
   }
@@ -55,7 +66,7 @@ export async function purchasePro(): Promise<boolean> {
 export async function restorePurchases(): Promise<boolean> {
   try {
     const customerInfo = await Purchases.restorePurchases();
-    return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+    return hasProEntitlement(customerInfo);
   } catch {
     return false;
   }
